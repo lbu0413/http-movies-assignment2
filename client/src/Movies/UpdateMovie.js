@@ -10,6 +10,8 @@ const initialForm = {
     stars: []
 }
 
+
+
 const UpdateMovie = (props) => {
 
     const { push } = useHistory()
@@ -41,13 +43,16 @@ const UpdateMovie = (props) => {
         event.preventDefault()
         axios.put(`http://localhost:5000/api/movies/${id}`, movie)
         .then(res => {
+            console.log(res.data)
             setMovie(res.data)
-            push(`/`)
+            push(`/movies/${id}`)
         })
         .catch(err => console.log(err))
         
 
     }
+
+    
 
     return(
         <div>
