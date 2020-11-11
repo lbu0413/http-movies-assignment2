@@ -5,7 +5,7 @@ import MovieCard from "./MovieCard";
 import { Route } from 'react-router-dom'
 import UpdateMovie from './UpdateMovie'
 
-function Movie({ addToSavedList, props }) {
+function Movie({ addToSavedList, movieList, setMovieList }) {
   const [movie, setMovie] = useState(null);
   const params = useParams();
   const { push } = useHistory()
@@ -15,7 +15,10 @@ function Movie({ addToSavedList, props }) {
     axios.delete(`http://localhost:5000/api/movies/${id}`)
     .then(res => {
         console.log(res)
-        setMovie(res.data)
+        const newMovieList = movieList.filter((movie) => {
+          return `${movie.id}` !== id
+        })
+        setMovieList(newMovieList)
         push(`/`)
     })
     .catch(err => console.log(err))
